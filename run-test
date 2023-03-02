@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+
+#change to bash from python..might be easier to remove files than directories
+
+from sys import argv
+import os
+
+currpath = "~/replace-script"
+
+dirpath = "/test/"
+
+path = os.path.join(currpath, dirpath)
+
+if argv[1] == "setup":
+    os.mkdir(path)
+    f1 = open("DevOps.java", "w")
+    f1.write('''
+    public class DevOps {
+        public DevOps() {
+        }
+    }
+    ''')
+    f1.close()
+    f2 = open("DevOpsMain.java", "w")
+    f2.write('''
+    public class DevOpsMain {
+        public static void main(String[] args) {
+            DevOps dev = new DevOps();
+        }
+    }
+    ''')
+    f2.close()
+
+elif argv[1] == "teardown":
+    try:
+        os.rmdir(path)
+    except:
+        print("That directory doesn't exist")
+    pass 
+    #rm -rf "/test/"
+
+else:
+    print("I don't understand.")
