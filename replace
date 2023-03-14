@@ -2,6 +2,10 @@
 
 from sys import argv
 
+if len(argv)!=4:
+    print('Usage: replace path oldpattern newpattern')
+    exit()
+
 path = argv[1]
 oldpattern = argv[2]
 newpattern = argv[3]
@@ -14,11 +18,12 @@ def traverse_path(path):
         for entry in path.iterdir():
             print_path(entry)
     if path.is_file():
+        pass
         #change name of file if it has oldpattern
         #open file and replace any contents there
 
-traverse_path(path)
+#traverse_path(path)
 
-if path.contains(oldpattern):
-    print(path)
-    path.replace(oldpattern, newpattern)
+#if path.contains(oldpattern):
+#    print(path)
+#    path.replace(oldpattern, newpattern)

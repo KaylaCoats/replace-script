@@ -1,43 +1,44 @@
 #!/usr/bin/env python3
 
-#change to bash from python..might be easier to remove files than directories
-
 from sys import argv
 import os
+import shutil
 
-currpath = "~/replace-script"
+dirpath = "test/edu/bvu/cs/"
 
-dirpath = "/test/"
-
-path = os.path.join(currpath, dirpath)
+if len(argv) > 2:
+    print('Usage: run-test (setup|teardown)')
+    exit()
 
 if argv[1] == "setup":
-    os.mkdir(path)
-    f1 = open("DevOps.java", "w")
-    f1.write('''
-    public class DevOps {
-        public DevOps() {
-        }
+    try:
+        shutil.rmtree('test/')
+    except:
+        pass
+    finally:
+        os.makedirs(dirpath)
+        os.chdir(dirpath)
+        f1 = open("DevOps.java", "w")
+        f1.write('''public class DevOps {
+    public DevOps() {
     }
+}
     ''')
-    f1.close()
-    f2 = open("DevOpsMain.java", "w")
-    f2.write('''
-    public class DevOpsMain {
-        public static void main(String[] args) {
-            DevOps dev = new DevOps();
-        }
+        f1.close()
+        f2 = open("DevOpsMain.java", "w")
+        f2.write('''public class DevOpsMain {
+    public static void main(String[] args) {
+        DevOps dev = new DevOps();
     }
+}
     ''')
-    f2.close()
+        f2.close()
 
 elif argv[1] == "teardown":
     try:
-        os.rmdir(path)
+        shutil.rmtree('test/')
     except:
         print("That directory doesn't exist")
-    pass 
-    #rm -rf "/test/"
 
 else:
-    print("I don't understand.")
+    print("Usage: run-test (setup|teardown)")
